@@ -13,7 +13,6 @@ const VideoList: React.FC<VideoListProps> = ({ videos = [] }) => {
   useEffect(() => {
     if (path === "/searchCaptions") setKey(false);
   }, [path]);
-console.log("object");
   return (
     <div
       className={
@@ -22,7 +21,6 @@ console.log("object");
           : "flex flex-col"
       }
     >
-
       {videos.map((video) => (
         <VideoCard
           key={video.title}

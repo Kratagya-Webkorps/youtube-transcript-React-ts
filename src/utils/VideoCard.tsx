@@ -18,15 +18,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
   const [isHidden, setIsHidden] = useState<string>("");
   const [key, setKey] = useState<boolean>(true);
   const path = window.location.pathname;
-  console.log({
-    thumbnail,
-    title,
-    channelTitle,
-    duration,
-    captions,
-    inputValue,
-    videoID,
-  });
+
   useEffect(() => {
     if (inputValue) {
       const result = captions?.filter((caption) =>
@@ -56,7 +48,6 @@ const VideoCard: React.FC<VideoCardProps> = ({
   };
 
   const toggleDropdown = async () => {
-    console.log(captions);
     setIsDropdownOpen(!isDropdownOpen);
   };
 
@@ -66,8 +57,8 @@ const VideoCard: React.FC<VideoCardProps> = ({
         onClick={toggleDropdown}
         className={
           key
-            ? `relative m-4 ${isHidden} flex-row bg-white border border-gray-200 rounded-lg shadow`
-            : `relative m-4 ${isHidden} flex bg-white border border-gray-200 rounded-lg shadow`
+            ? `relative m-4 ${isHidden} cursor-pointer flex-row bg-white border border-gray-200 rounded-lg shadow`
+            : `relative m-4 ${isHidden} cursor-pointer flex bg-white border border-gray-200 rounded-lg shadow`
         }
       >
         <button
