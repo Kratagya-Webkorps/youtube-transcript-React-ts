@@ -4,6 +4,7 @@ const axios = require("axios");
 const { find } = require("lodash");
 const striptags = require("striptags");
 const cors = require("cors");
+const { error } = require("console");
 const app = express();
 app.use(cors());
 const PORT = process.env.PORT || 5000;
@@ -36,7 +37,6 @@ const getSubtitles = async ({ videoID, lang = "en" }) => {
     find(captionTracks, { vssId: `.${lang}` }) ||
     find(captionTracks, { vssId: `a.${lang}` }) ||
     find(captionTracks, ({ vssId }) => vssId && vssId.match(`.${lang}`));
-
   if (!subtitle || (subtitle && !subtitle.baseUrl))
     throw new Error(`Could not find ${lang} captions for ${videoID}`);
 
@@ -64,10 +64,8 @@ const getSubtitles = async ({ videoID, lang = "en" }) => {
         .replace(/<text.+>/, "")
         .replace(/&amp;/gi, "&")
         .replace(/<\/?[^>]+(>|$)/g, "");
-
       const decodedText = he.decode(htmlText);
       const text = striptags(decodedText);
-
       return { start, dur, text };
     })
     .filter((line) => line !== null);
