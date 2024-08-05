@@ -80,7 +80,6 @@ const CaptionTimeline: React.FC<CaptionTimelineProps> = ({
                 From {formatTime(caption.start)} sec
               </p>
               <p className="text-gray-600">{caption.text}</p>
-
             </div>
           ))}
         </div>

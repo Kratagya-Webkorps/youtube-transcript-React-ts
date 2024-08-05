@@ -5,7 +5,10 @@ interface SearchTypeSelectorProps {
   onSearchTypeChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const SearchTypeSelector: React.FC<SearchTypeSelectorProps> = ({ searchType, onSearchTypeChange }) => (
+const SearchTypeSelector: React.FC<SearchTypeSelectorProps> = ({
+  searchType,
+  onSearchTypeChange,
+}) => (
   <select
     value={searchType}
     onChange={onSearchTypeChange}

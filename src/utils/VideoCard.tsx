@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CaptionProp, VideoCardProps } from "../interfaces/interfaces";
 import CaptionTimeline from "./CaptionTimeLine";
 import { FaMinus } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const VideoCard: React.FC<VideoCardProps> = ({
   thumbnail,
@@ -17,7 +18,15 @@ const VideoCard: React.FC<VideoCardProps> = ({
   const [isHidden, setIsHidden] = useState<string>("");
   const [key, setKey] = useState<boolean>(true);
   const path = window.location.pathname;
-
+  console.log({
+    thumbnail,
+    title,
+    channelTitle,
+    duration,
+    captions,
+    inputValue,
+    videoID,
+  });
   useEffect(() => {
     if (inputValue) {
       const result = captions?.filter((caption) =>
@@ -46,7 +55,8 @@ const VideoCard: React.FC<VideoCardProps> = ({
     setIsHidden("hidden");
   };
 
-  const toggleDropdown = () => {
+  const toggleDropdown = async () => {
+    console.log(captions);
     setIsDropdownOpen(!isDropdownOpen);
   };
 
@@ -83,17 +93,22 @@ const VideoCard: React.FC<VideoCardProps> = ({
             </h5>
             <div className="flex-col lg:flex-row lg:flex lg:items-end gap-1 mt-2 text-gray-700">
               <p className="mb-3 font-medium ">{duration}</p>
-              <p className="mb-3 font-extrabold mx-5 underline">
-                {channelTitle}
-              </p>
+              <Link to={`https://www.youtube.com/embed/${videoID}`}>
+                {" "}
+                <p className="mb-3 font-extrabold mx-5 underline">
+                  {channelTitle}
+                </p>
+              </Link>
             </div>
-            {inputValue.length>0 && filteredCaptions && filteredCaptions.length > 0 && (
-              <div className="mt-2">
-                <h6 className="font-bold text-red-700 ">
-                  Captions containing "{inputValue}" found
-                </h6>
-              </div>
-            )}
+            {inputValue.length > 0 &&
+              filteredCaptions &&
+              filteredCaptions.length > 0 && (
+                <div className="mt-2">
+                  <h6 className="font-bold text-red-700 ">
+                    Captions containing "{inputValue}" found
+                  </h6>
+                </div>
+              )}
           </div>
         </div>
       </div>
@@ -107,3 +122,6 @@ const VideoCard: React.FC<VideoCardProps> = ({
 };
 
 export default VideoCard;
+
+//https://api.mymemory.translated.net/get?q=salary&langpair=hi|en
+//this api can be used to translate one lang to another

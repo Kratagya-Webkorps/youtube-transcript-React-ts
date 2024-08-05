@@ -71,7 +71,7 @@ const SearchBar: React.FC = () => {
   const handleSearch = async () => {
     setIsLoading(true);
     setError(null);
-    setInputValue("")
+    setInputValue("");
 
     try {
       if (searchType === "Select Link Type") {
@@ -90,7 +90,6 @@ const SearchBar: React.FC = () => {
         return;
       }
 
-
       if (searchType === "Youtube URL") {
         const videoID = extractYouTubeVideoID(inputValue);
         if (!videoID) return;
@@ -100,7 +99,6 @@ const SearchBar: React.FC = () => {
             part: "contentDetails,snippet",
           },
         });
-        console.log(mydata);
         const videoData = mydata.data.items[0].snippet;
         const videoDuration = convertDuration(
           mydata.data.items[0].contentDetails.duration
@@ -161,6 +159,7 @@ const SearchBar: React.FC = () => {
             thumbnail: item.snippet.thumbnails.medium.url,
             channelTitle: item.snippet.channelTitle,
             title: item.snippet.title,
+            inputValue: inputValue
           })
         );
         setAllVideoData(videoDataArray);
@@ -200,7 +199,11 @@ const SearchBar: React.FC = () => {
       {!isLoading && (
         <>
           {searchType === "Youtube URL" && responseData && (
+            <>
             <VideoList videos={[responseData]} />
+            <h2 className=" p-4 text-2xl font-bold mt-5">Search History</h2>
+            <VideoList videos={searchHistory} />
+          </>
           )}
           {searchType === "Youtube Channel" && allVideoData.length > 0 && (
             <VideoList videos={allVideoData} />
